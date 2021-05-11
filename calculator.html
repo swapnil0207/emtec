@@ -1,47 +1,80 @@
 <html>
     <head>
         <title>Calculator Emtec</title>
-        <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    </head>
-    <body>
-        <hr>
         
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<style>
+    body {background-color: powderblue;}
+    button    {height: 10%;width: 20%; font-size: x-large; border-radius: 50%;}
+    </style>
+</head>
+    <body >
+        <hr>
+        <div class="col-md-4"></div>
+        <div class="col-md-4" style="background-color: grey;">
+            
             <div ALIGN="center">
-            <p id="p"></p>
+            <h2 id="p" style="color: lightblue;"></h2>
+            <hr>
+            <button style="width: fit-content; border-radius: 25%;" onclick="hist()">History</button>
+            <button style="width: fit-content; border-radius: 25%;" onclick="window.location.reload()">Clear All</button>
+            <button style="width: fit-content; border-radius: 25%;" onclick="del()">Delete Last</button><br><br>
             <button onclick="abc(7)">7</button>
             <button onclick="abc(8)">8</button>
             <button onclick="abc(9)">9</button>
-            <button onclick="abc('*')">*</button> <br><br>
+            <button onclick="abc('*')" style="background-color: rgb(187, 125, 245);">*</button> <br><br>
             <button onclick="abc(4)">4</button>
             <button onclick="abc(5)">5</button>
             <button onclick="abc(6)">6</button>
-            <button onclick="abc('-')">-</button> <br><br>
+            <button onclick="abc('-')" style="background-color: rgb(187, 125, 245);">-</button> <br><br>
             <button onclick="abc(1)">1</button>
             <button onclick="abc(2)">2</button>
             <button onclick="abc(3)">3</button>
-            <button onclick="abc('+')">+</button> <br><br>
-            <button style="width:5%" onclick="abc(0)">0</button>            
-            <button onclick="final()">=</button> <br><br>
+            <button onclick="abc('+')" style="background-color: rgb(187, 125, 245);">+</button> <br><br>
+            <button  onclick="abc(0)">0</button>
+            <button  onclick="abc('.')">.</button>            
+            <button onclick="abc('/')" style="background-color: rgb(187, 125, 245);">/</button>
+            <button onclick="final()" style="background-color: rgb(187, 125, 245);">=</button> <br><br>
+            <hr>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="container">
             
+            </div>
         </div>
         <script>
-            var arr=[];
-            var i=0;
-            var a=0;
-            var b=0;
             var p=document.getElementById("p");
-            var toeval=""
+            var toeval="";
             function abc(n)
             {
                 toeval+=n;
                 console.log(toeval);
-                //p.innerHTML=eval(toeval);
+                p.innerHTML=toeval;
             }
             function final()
             {
-                console.log(toeval.length);
-                p.innerHTML=eval(toeval);
+                try{
+                    console.log(toeval.length);
+                    toeval=eval(toeval)+'';
+                    p.innerHTML=toeval;
+                }
+                catch(err)
+                {
+                    alert("Please check given expression oncce again and enter a Valid expression");
+                }
+            }
+            function del()
+            {
+                console.log(toeval[toeval.length-1]);
+                toeval=toeval.slice(0,toeval.length-1);
+                console.log(toeval);
+                p.innerHTML=toeval;
+                
+            }
+            function hist()
+            {
+                alert("Yet to implement");
             }
             
         
