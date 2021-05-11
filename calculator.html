@@ -1,7 +1,7 @@
 <html>
     <head>
         <title>Calculator Emtec</title>
-        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <style>
     body {background-color: powderblue;}
@@ -10,14 +10,17 @@
 </head>
     <body >
         <hr>
-        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <h3 id="h" ></h3>
+
+        </div>
         <div class="col-md-4" style="background-color: grey;">
             
             <div ALIGN="center">
             <h2 id="p" style="color: lightblue;"></h2>
             <hr>
-            <button style="width: fit-content; border-radius: 25%;" onclick="hist()">History</button>
-            <button style="width: fit-content; border-radius: 25%;" onclick="window.location.reload()">Clear All</button>
+            <button id="history" style="width: fit-content; border-radius: 25%;" onclick="hist()">History</button>
+            <button style="width: fit-content; border-radius: 25%;" onclick="clear1()">Clear All</button>
             <button style="width: fit-content; border-radius: 25%;" onclick="del()">Delete Last</button><br><br>
             <button onclick="abc(7)">7</button>
             <button onclick="abc(8)">8</button>
@@ -45,19 +48,38 @@
         </div>
         <script>
             var p=document.getElementById("p");
+            var h=document.getElementById("h");
+            var his=document.getElementById("history");
             var toeval="";
+            var temptoeval=[];
+            var i=0;
+            let print=(toeval)=> p.innerHTML=toeval;
             function abc(n)
             {
+                if(toeval=="" && (n=="+"||n=="*"||n=="/"))
+                {
+                    alert("Invalid Expression Operator without Number");
+                    return;
+                }
+                if(toeval[toeval.length-1]=="+"||toeval[toeval.length-1]=="-"||toeval[toeval.length-1]=="*"||toeval[toeval.length-1]=="/")
+                {
+                    if(n=="+"||n=="-"||n=="*"||n=="/")
+                    {
+                        alert("Invalid Expression Can't add operator without Number");
+                        return;
+                    }
+                }
                 toeval+=n;
                 console.log(toeval);
-                p.innerHTML=toeval;
+                print(toeval);
             }
             function final()
             {
                 try{
-                    console.log(toeval.length);
+                    temptoeval[i]=toeval;
+                    i++;
                     toeval=eval(toeval)+'';
-                    p.innerHTML=toeval;
+                    print(toeval);
                 }
                 catch(err)
                 {
@@ -66,17 +88,49 @@
             }
             function del()
             {
-                console.log(toeval[toeval.length-1]);
+                
                 toeval=toeval.slice(0,toeval.length-1);
-                console.log(toeval);
-                p.innerHTML=toeval;
+                print(toeval);
                 
             }
             function hist()
             {
-                alert("Yet to implement");
+                console.log(toeval);
+                if(his.innerHTML=="History"){
+                    his.innerHTML="Hide";
+                    h.hidden=false;
+                    var it="";
+                    let g=0;
+                    for(var j=0;j<temptoeval.length;j++)
+                    {
+                        try{
+                            it="<b><br>"+(g+1)+"> "+temptoeval[j]+" ="+eval(temptoeval[j])+" </b>"+it;
+                            g=g+1;
+                        }
+                        catch(err)
+                        {
+                            g=g;
+                        }
+                    }
+                    h.innerHTML=it;
+
+                }
+                else{
+                    his.innerHTML="History";
+                    h.hidden=true;
+                }
+                
+                //console.log("IN his");
+
             }
-            
+            function clear1()
+            {
+                console.log("IN clear");
+                toeval="";
+                i=0;
+                temptoeval=[];
+                print(toeval);
+            }
         
         </script>
         
